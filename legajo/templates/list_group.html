@@ -1,0 +1,58 @@
+{%extends "index.html"%}
+{%load staticfiles%}
+{%load query_extras%}
+{%block main%}
+    
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Grupo de Investigación</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <th>
+                      NOMBRE
+                </th>
+                <th>
+                TEMA
+                </th>
+                <th>
+                      INVESTIGADOR PRINCIPAL
+                </th>
+                    <th>
+                      FECHA DE INICIO
+                </th>
+                    <th>
+                      FECHA DE FIN
+                </th>
+                    <th>
+                      DESCRIPCION
+                </th>
+                <th>
+                      EDITAR
+                </th>
+                <th>
+                     ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for g in group %}
+                  <tr>
+                      <td>{{g.GI_NOMBRE}}</td>
+                      <td>{{g.GI_TEMA}}</td>
+                  <td>{{g.GI_INV_PRINCIPAL}}</td>
+                      <td>{{g.GI_FECHA_INI}}</td>
+                      <td>{{g.GI_FECHA_FIN}}</td>
+                      <td>{{g.GI_DESCRIPCION}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_group' g.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_group' g.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+              </div>
+            </div>
+            {%endblock%}

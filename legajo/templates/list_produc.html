@@ -1,0 +1,57 @@
+ {%extends "index.html"%}
+{%load staticfiles%}
+{%load query_extras%}
+{%block main%}
+ 
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Producciones Científicas</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                <th>
+                        TITULO
+                    </th>
+                    <th>
+                        TIPO
+                    </th>
+                    <th>
+                        PRIMER AUTOR
+                    </th>
+                    <th>
+                        FECHA DE PUBLICACIÓN
+                    </th>
+                    <th>
+                        REPOSITORIO
+                    </th>
+                    <th>
+                        URL DEL REPOSITORIO
+                    </th>
+                    <th>
+                        EDITAR
+                    </th>
+                    <th>
+                        ELIMINAR
+                    </th>
+                  </thead>
+                  <tbody>
+                  {% for produ in produc %}
+                  <tr>
+                      <td>{{produ.PROD_TITULO}}</td>
+                      <td>{{produ.PROD_TIPO}}</td>
+                      <td>{{produ.PROD_PRIMER_AUTOR}}</td>
+                      <td>{{produ.PROD_FECHA}}</td>
+                      <td>{{produ.PROD_REPOSI}}</td>
+                      <td>{{produ.PROD_URL}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_produc' produ.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_produc' produ.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+              </div>
+            </div>
+            {%endblock%}

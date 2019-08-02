@@ -1,0 +1,452 @@
+{%extends "index.html"%}
+{%load staticfiles%}
+{%load query_extras%}
+{%block main%}
+<h1 class="h3 mb-2 text-gray-800">Docente</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                   <th>
+      CODIGO
+    </th>
+    <th>
+      DNI
+    </th> 
+    <th>
+      CELULAR
+    </th> 
+    <th>
+      EMAIL
+    </th> 
+    <th>
+      NOMBRE
+    </th> 
+    <th>
+      APELLIDO PATERNO
+    </th>
+    <th>
+      APELLIDO MATERNO
+    </th> 
+    <th>
+      SEXO
+    </th> 
+    <th>
+      FECHA DE NACIMIENTO
+    </th>   
+    <th>
+      ESTADO
+    </th> 
+    <th>
+      EDITAR
+    </th>
+    <th>
+      ELIMINAR
+
+  </thead>
+  <tbody> 
+  {% for prof in profesor %}
+   <tr data-toggle="collapse" data-target="#accordion{{prof.id}}" class="clickable">
+    <td>{{prof.DOC_COD}}</td>
+    <td>{{prof.DOC_DNI}}</td>
+    <td>{{prof.DOC_CELU}}</td>
+    <td>{{prof.DOC_EMAIL}}</td>
+    <td>{{prof.DOC_NOMBRE}}</td>
+    <td>{{prof.DOC_APE_PATER}}</td>
+    <td>{{prof.DOC_APE_MATER}}</td>
+    <td>{{prof.DOC_SEXO}}</td>
+    <td>{{prof.DOC_NAC}}</td>
+    <td>{{prof.DOC_ESTADO}}</td>
+    <td><a class="btn btn-info" href="{% url 'edit_profesor' prof.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+    <td><a class="btn btn-danger" href="{% url 'delete_profesor' prof.id %}"> <i class="fas text-light fa-trash fa-xs"></i></a></td>
+  </tr>
+  <tr class=" table-borderless">
+            <td colspan="9" style="padding:0px" >
+                <div id="accordion{{prof.id}}" class="accordian-body collapse">
+                  CURSOS
+                  <table class="table table-bordered" >
+                  <thead class="table-secondary" >
+                <th>
+                      CURSO
+                </th>
+                <th>
+                CÓDIGO
+                </th>
+                <th>
+                      CRÉDITOS
+                </th>
+                    <th>
+                      HORAS SEMANALES
+                </th>
+                    <th>
+                      CICLO
+                </th>
+                <th>
+                      SEMESTRE
+                </th>
+                <th>
+                      EDITAR
+                </th>
+                <th>
+                      ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for cur in curso|docentes:prof.id %}
+                  <tr>
+                      <td>{{cur.CUR_NOMBRE}}</td>
+                      <td>{{cur.CUR_COD}}</td>
+                      <td>{{cur.CUR_CRED}}</td>
+                      <td>{{cur.CUR_HOR_SEM}}</td>
+                      <td>{{cur.CUR_CICLO}}</td>
+                      <td>{{cur.CUR_SEMES}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_curso' cur.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_curso' cur.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </td>
+  </tr> 
+   <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  EXP. LABORAL
+                  <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                <th>
+                        CARGO
+                    </th>
+                    <th>
+                        FECHA DE INICIO
+                    </th>
+                    <th>
+                        FECHA DE FIN
+                    </th>
+                    <th>
+                        SUELDO EN SOLES
+                    </th>
+                    <th>
+                        DESCRIPCIÓN
+                    </th>
+                    <th>
+                        ENTIDAD
+                    </th>
+                    <th>
+                        EDITAR
+                    </th>
+                    <th>
+                        ELIMINAR
+                    </th>
+                    </thead>
+                  <tbody>
+                  {% for exp in explaboral|explaboral:prof.id %}
+                  <tr>
+                      <td>{{exp.EXL_CARGO}}</td>
+                      <td>{{exp.EXL_FECHA_INI}}</td>
+                      <td>{{exp.EXL_FECHA_FIN}}</td>
+                      <td>{{exp.EXL_SUELDO}}</td>
+                      <td>{{exp.EXL_DESCRIP}}</td>
+                      <td>{{exp.entidad.ENT_NOMBRE}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_explaboral' exp.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_explaboral' exp.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </td>
+  </tr> 
+  <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  EXP. DOCENTE
+                  <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                  <th>
+                        CARGO
+                    </th>
+                    <th>
+                        FECHA DE INICIO
+                    </th>
+                    <th>
+                        FECHA DE FIN
+                    </th>
+                    <th>
+                        EDITAR
+                    </th>
+                    <th>
+                        ELIMINAR
+                    </th>
+                    </thead>
+                  <tbody>
+                  {% for exp in expdocente|expdocente:prof.id %}
+                  <tr>
+                      <td>{{exp.EXD_CARGO}}</td>
+                      <td>{{exp.EXD_FECHA_INI}}</td>
+                      <td>{{exp.EXD_FECHA_FIN}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_expdocente' exp.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_expdocente' exp.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </td>
+  </tr> 
+  <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  GRUPOS DE INVESTIGACION
+                  <table class="table table-bordered" id="dataTable4" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                <th>
+                      NOMBRE
+                </th>
+                <th>
+                TEMA
+                </th>
+                <th>
+                      INVESTIGADOR PRINCIPAL
+                </th>
+                    <th>
+                      FECHA DE INICIO
+                </th>
+                    <th>
+                      FECHA DE FIN
+                </th>
+                    <th>
+                      DESCRIPCION
+                </th>
+                <th>
+                      EDITAR
+                </th>
+                <th>
+                     ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for g in group|group:prof.id %}
+                  <tr>
+                      <td>{{g.GI_NOMBRE}}</td>
+                      <td>{{g.GI_TEMA}}</td>
+                  <td>{{g.GI_INV_PRINCIPAL}}</td>
+                      <td>{{g.GI_FECHA_INI}}</td>
+                      <td>{{g.GI_FECHA_FIN}}</td>
+                      <td>{{g.GI_DESCRIPCION}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_group' g.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_group' g.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>  
+                </div>
+            </td>
+  </tr> 
+   <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  TITULOS
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                    <th>
+                      NOMBRE
+                </th>
+                <th>
+                TIPO
+                </th>
+                    <th>
+                      FECHA DE INICIO
+                </th>
+                    <th>
+                      FECHA DE FIN
+                </th>
+                <th>
+                      EDITAR
+                </th>
+                <th>
+                     ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for tit in titulo|titulo:prof.id %}
+                  <tr>
+                      <td>{{tit.TIT_NOMBRE}}</td>
+                      <td>{{tit.TIT_TIPO}}</td>
+                      <td>{{tit.TIT_INI}}</td>
+                      <td>{{tit.TIT_FIN}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_titulo' tit.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_titulo' tit.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table> 
+                </div>
+            </td>
+  </tr> 
+  <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  ESPECIALIZACIONES
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                    <th>
+                      NOMBRE
+                </th>
+                <th>
+                TIPO
+                </th>
+                    <th>
+                      FECHA DE INICIO
+                </th>
+                    <th>
+                      FECHA DE FIN
+                </th>
+                  <th>
+                      EDITAR
+                </th>
+                <th>
+                      ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for e in espec|espec:prof.id %}
+                  <tr>
+                      <td>{{e.ESP_NOMBRE}}</td>
+                      <td>{{e.ESP_TIPO}}</td>
+                      <td>{{e.ESP_FECHA_INI}}</td>
+                      <td>{{e.ESP_FECHA_FIN}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_espec' e.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_espec' e.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </td>
+  </tr> 
+  <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  PRODUCCION CIENTIFICA
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                <th>
+                        TITULO
+                    </th>
+                    <th>
+                        TIPO
+                    </th>
+                    <th>
+                        PRIMER AUTOR
+                    </th>
+                    <th>
+                        FECHA DE PUBLICACIÓN
+                    </th>
+                    <th>
+                        REPOSITORIO
+                    </th>
+                    <th >
+                        URL DEL REPOSITORIO
+                    </th>
+                    <th>
+                        EDITAR
+                    </th>
+                    <th>
+                        ELIMINAR
+                    </th>
+                  </thead>
+                  <tbody>
+                  {% for produ in produc|produc:prof.id %}
+                  <tr>
+                      <td>{{produ.PROD_TITULO}}</td>
+                      <td>{{produ.PROD_TIPO}}</td>
+                      <td>{{produ.PROD_PRIMER_AUTOR}}</td>
+                      <td>{{produ.PROD_FECHA}}</td>
+                      <td>{{produ.PROD_REPOSI}}</td>
+                      <td >{{produ.PROD_URL}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_produc' produ.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_produc' produ.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </td>
+  </tr> 
+    <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  EVALUACION Y PERFECCIONAMIENTO
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                <th>
+                TIPO
+                </th>
+                    <th>
+                      OBSERVACIÓN
+                </th>
+                <th>
+                      EDITAR
+                </th>
+                <th>
+                     ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for eva in Eva|eval:prof.id %}
+                  <tr>
+                      <td>{{eva.EVA_TIPO}}</td>
+                      <td>{{eva.EVA_OBSERVACION}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_eval' eva.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_eval' eva.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </td>
+  </tr> 
+     <tr class="table-borderless">
+            <td colspan="9" style="padding: 0px" >
+                <div id="accordion{{prof.id}}" class="collapse">
+                  CARGO
+                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead class="table-secondary">
+                <th>
+                NOMBRE
+                </th>
+                    <th>
+                      DESCRIPCION
+                </th>
+                 <th>
+                      EDITAR
+                </th>
+                <th>
+                      ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for c in cargo|cargo:prof.id %}
+                  <tr>
+                      <td>{{c.CAR_NOM}}</td>
+                      <td>{{c.CAR_DESCRIP}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_cargo' c.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_cargo' c.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </td>
+  </tr> 
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{%endblock%}

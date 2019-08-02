@@ -1,0 +1,57 @@
+{%extends "index.html"%}
+{%load staticfiles%}
+{%load query_extras%}
+{%block main%}  
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Cursos</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <th>
+                      CURSO
+                </th>
+                <th>
+                CÓDIGO
+                </th>
+                <th>
+                      CRÉDITOS
+                </th>
+                    <th>
+                      HORAS SEMANALES
+                </th>
+                    <th>
+                      CICLO
+                </th>
+                <th>
+                      SEMESTRE
+                </th>
+                <th>
+                      EDITAR
+                </th>
+                <th>
+                      ELIMINAR
+                </th>
+                  </thead>
+                  <tbody>
+                  {% for cur in curso %}
+                  <tr>
+                      <td>{{cur.CUR_NOMBRE}}</td>
+                      <td>{{cur.CUR_COD}}</td>
+                      <td>{{cur.CUR_CRED}}</td>
+                      <td>{{cur.CUR_HOR_SEM}}</td>
+                      <td>{{cur.CUR_CICLO}}</td>
+                      <td>{{cur.CUR_SEMES}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_curso' cur.id %}"><i class="fas fa-pen fa-xs"></i></a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_curso' cur.id %}"><i class="fas text-light fa-trash fa-xs"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+              </div>
+            </div>
+            {%endblock%}

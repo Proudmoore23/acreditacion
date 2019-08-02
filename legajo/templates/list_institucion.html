@@ -1,0 +1,42 @@
+{%extends "index.html"%}
+{%load staticfiles%}
+{%load query_extras%}
+{%block main%}
+<h1 class="h3 mb-2 text-gray-800">Instituciones</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                <th>
+                        INSTITUCION
+                    </th>
+                    <th>
+                        PAIS
+                    </th>
+                    <th>
+                        TIPO
+                    </th>
+                    <th>
+                        EDITAR
+                    </th>
+                    <th>
+                        ELIMINAR
+                    </th>
+                  </thead>
+                  <tbody>
+                  {% for inst in institucion %}
+                  <tr>
+                      <td>{{inst.INSTI_NOMBRE}}</td>
+                      <td>{{inst.INSTI_PAIS}}</td>
+                      <td>{{inst.INSTI_TIPO}}</td>
+                      <td><a class="btn btn-info" href="{% url 'edit_institucion' inst.id %}">EDITAR</a></td>
+                      <td><a class="btn btn-danger" href="{% url 'delete_institucion' inst.id %}">ELIMINAR</a></td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+              </div>
+            </div>
+            {%endblock%}
